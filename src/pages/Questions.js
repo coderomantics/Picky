@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 
 
-export default function Questions({ questions, addQuestion, title, setTitle }) {
+export default function Questions({ questions, addQuestion, title, setTitle, removeQuestion }) {
  
   const [inputText, setInputText] = useState('')
   
@@ -48,7 +48,13 @@ export default function Questions({ questions, addQuestion, title, setTitle }) {
      
     
       </form>
-      {questions.map((qn) => <p>{qn}</p>)}
+      
+
+      {questions.map((qn, index) => 
+      <li key={index}>
+        <p>{qn}</p>
+        <button onClick={() => removeQuestion(index)}> X </button>
+      </li>)}
       
            
       </div>

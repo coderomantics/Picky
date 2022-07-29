@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {Link} from 'react-router-dom';
 
-export default function CreateGame({ players, addPlayer }) {
+export default function CreateGame({ players, addPlayer, removePlayer }) {
   const [inputText, setInputText] = useState('')
   
 
@@ -14,10 +14,12 @@ export default function CreateGame({ players, addPlayer }) {
     setInputText('')
   }
 
-  function removePlayer(id) {
-    // const newList = players.filter((p) => p.id !== id )
-    // setPlayers(newList);
-  }
+  // function removePlayer(playerIndex) {
+  //   const newList = players.filter((_, index) => index !== playerIndex )
+  //   setPlayers(newList);
+  // }
+
+  
 
   return (
     <>
@@ -36,10 +38,10 @@ export default function CreateGame({ players, addPlayer }) {
     
       </form>
       
-      {players.map((p) => 
-      <li key={p.id}>
+      {players.map((p, index) => 
+      <li key={index}>
         <p>{p}</p>
-        <button onClick={() => removePlayer(p.id)}> X </button>
+        <button onClick={() => removePlayer(index)}> X </button>
       </li>)}
       {/* // <h1>{p} <button onClick={() => removePlayer(i)}> X </button></h1>) */}
 
