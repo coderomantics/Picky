@@ -5,26 +5,18 @@ import Questions from './pages/Questions';
 import Form from './pages/Form'
 import {Routes, Route, Link} from 'react-router-dom'; 
 import Dashboard from './pages/Dashboard';
-import { ApiClient } from './apiClient';
 
 function App() {
   const [players, setPlayers] = useState([])
   const [title, setTitle] = useState('')
   const [questions, setQuestions] = useState([])
-  const api = new ApiClient()
+  
 
   const addPlayer = (playerName) => {
     setPlayers(players => [...players, playerName])
-    api.addPlayer(playerName)
-  }
-
-  useEffect(() => {
-    (async () => {
-      const data = await api.getPlayers()
-      setPlayers(data)
-    })()
-  }, [])
-
+   
+  } // -> ['jess']
+  
   const addQuestion = (question) => {
     setQuestions(questions => [...questions, question])
   }
@@ -38,6 +30,19 @@ function App() {
     const newList = questions.filter((_, index) => index !== qnIndex )
     setQuestions(newList);
   }
+
+  //HELPER FUNCTIONS
+  const playersObj = players.map((player) => (
+    {name: player, score: 0}
+  ))
+
+  //console.log(playersObj)
+
+  const questionsObj = questions.map((question) => (
+    {title: question, players: playersObj}
+  ))
+
+  //console.log(questionsObj) 
 
 
   return (

@@ -4,29 +4,8 @@ export class ApiClient {
 
   constructor() {} 
 
-  async getPlayers () {
-    const response = await fetch(this.rootUrl + '/players', {
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }
-    })
-    const data = await response.json();
-   
-    return data;
-  }
+  async 
   
-  async addPlayer (p) {
-    const player = await fetch(this.rootUrl + '/players', {
-      method: 'POST',
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       },
-      body: JSON.stringify(p),
-    });
-    const data = await player.json();
-    return data;
-  }
+  
 
 }
