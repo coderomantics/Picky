@@ -6,6 +6,7 @@ import Form from './pages/Form'
 import {Routes, Route, Link} from 'react-router-dom'; 
 import Dashboard from './pages/Dashboard';
 
+
 function App() {
   const [players, setPlayers] = useState([])
   const [title, setTitle] = useState('')
