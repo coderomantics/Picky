@@ -13,18 +13,19 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-const playersSchema = new Schema ({
-  players: {
-    type: String,
-  },
-});
 
-const questionsSchema = new Schema ({
-  questions: {
-    type: String,
-  }
+const gameSchema = new Schema ({
+  questions: [
+    {
+      title: String,
+      player: String,
+      score: Number
+    }
+  ]
 })
-const Game = mongoose.model('Game', playersSchema, questionsSchema)
+
+
+const Game = mongoose.model('Game', gameSchema)
 
 module.exports = Game;
 
