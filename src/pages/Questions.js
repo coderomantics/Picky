@@ -31,7 +31,6 @@ export default function Questions({ questions, addQuestion, title, setTitle, rem
           placeholder="Untitled game"
           type='text'
           onChange={(e) => setTitle(e.target.value)}
-          on
           value={title}/>
         </form>
       </div>

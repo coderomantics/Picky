@@ -33,7 +33,7 @@ function App() {
 
   //HELPER FUNCTIONS
   const playersObj = players.map((player) => (
-    {name: player, score: 0}
+    {name: player, picked: false}
   ))
 
   //console.log(playersObj)

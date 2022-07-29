@@ -1,9 +1,18 @@
 
+import {React, useState} from "react";
+
+
+
 
 
 export default function Form({title, questions, players}) {
-  
-  
+  const [score, setScore] = useState(0);
+
+  function answerHandler () {
+    console.log('clicked')
+    setScore(score + 1)
+    console.log(score)
+  }
 
   return (
     <div className="form">
@@ -15,11 +24,15 @@ export default function Form({title, questions, players}) {
         <label>
           <input
             type='radio'
-            name='name'
-            value={p}/>
+            name={qn}
+            value={p}
+            onClick={(e)=> answerHandler(e.target.value)}
+            required/>
             {p}
         </label>
           )}   
+          
+
         </>
       ))
       }
