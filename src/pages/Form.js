@@ -20,8 +20,9 @@ export default function Form({title, questions, players}) {
     }
 
     setScore({
-      [qn] : qn,
-      [name] : vote
+      title : qn,
+      player : name, 
+      score : vote
     })
     console.log(score)  
   }
@@ -58,7 +59,7 @@ export default function Form({title, questions, players}) {
         </>
       ))
       }
-        <button type='submit'> SEND </button>
+        <button type='submit'> SAVE RESPONSES</button>
       </form>
               
     </div>
