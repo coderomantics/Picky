@@ -59,7 +59,7 @@ export default function Form({title, questions, players}) {
         </>
       ))
       }
-        <button type='submit'> SAVE RESPONSES</button>
+        {/* <button type='submit'> SAVE RESPONSES</button>  HAHAHA BUTTON DONT WORK*/}
       </form>
               
     </div>
