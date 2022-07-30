@@ -40,7 +40,7 @@ export default function CreateGame({ players, addPlayer, removePlayer }) {
       
       {players.map((p, index) => 
       <li key={index}>
-        <p>{p}</p>
+        <p>{p.name}</p>
         <button onClick={() => removePlayer(index)}> X </button>
       </li>)}
       {/* // <h1>{p} <button onClick={() => removePlayer(i)}> X </button></h1>) */}

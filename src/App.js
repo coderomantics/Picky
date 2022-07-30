@@ -14,7 +14,9 @@ function App() {
   
 
   const addPlayer = (playerName) => {
-    setPlayers(players => [...players, playerName])
+    setPlayers(players => [...players, 
+      {name: playerName,
+       score: 0}])
    
   } // -> ['jess']
   
@@ -33,15 +35,15 @@ function App() {
   }
 
   //HELPER FUNCTIONS
-  const playersObj = players.map((player) => (
-    {name: player, picked: false}
-  ))
+  // const playersObj = players.map((player) => (
+  //   {name: player, picked: false}
+  // ))
 
-  //console.log(playersObj)
+  // //console.log(playersObj)
 
-  const questionsObj = questions.map((question) => (
-    {title: question, players: playersObj}
-  ))
+  // const questionsObj = questions.map((question) => (
+  //   {title: question, players: playersObj}
+  // ))
 
   //console.log(questionsObj) 
 
@@ -56,7 +58,7 @@ function App() {
         <Route path='/' element={<Dashboard title={title}/>} />
         <Route path='/players' element={<AddPlayer players={players} addPlayer={addPlayer} removePlayer={removePlayer}/>} />
         <Route path='/questions' element={<Questions questions={questions} addQuestion={addQuestion} title={title} setTitle={setTitle} removeQuestion={removeQuestion}/>}/>
-        <Route path='/form' element={<Form title={title} questions={questions} players={players} />} />
+        <Route path='/form' element={<Form title={title} questions={questions} players={players} setPlayers={setPlayers} />} />
       </Routes>
     
 
