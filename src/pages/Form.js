@@ -79,10 +79,11 @@ export default function Form({title, questions, players, setPlayers}) {
         
                 required />
               {p.name}
+              <Doughnut data={data} />
             </label>
      
           )}   
-          <Doughnut data={data} />
+       
       
           
 

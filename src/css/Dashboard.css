@@ -1,0 +1,13 @@
+#game-header {
+  color: pink;
+  display: flex;
+  
+  justify-content: center;
+  margin-top: 200px;
+  
+}
+
+#add-btn {
+  color: pink;
+  
+}

@@ -50,9 +50,17 @@ function App() {
 
   return (
     <> 
-      <div className="App">
+      <div className="app-container">
       <nav>
-        <Link to='/'>Picky</Link>
+        <Link style={{textDecoration: 'none'}} to='/'>
+        <ul className='app-name'>
+        <li className="text text-1">P</li>
+        <li className="text text-2">I</li>
+        <li className="text text-3">C</li>
+        <li className="text text-4">K</li>
+        <li className="text text-5">Y</li>
+        </ul>
+        </Link>
       </nav>
       <Routes>
         <Route path='/' element={<Dashboard title={title}/>} />
