@@ -1,0 +1,36 @@
+.add-players-container {
+  display: flex;
+  flex-direction: column;
+  
+  align-items: center;
+ 
+ 
+ 
+
+ 
+}
+
+#input-box {
+  height:fit-content;
+}
+  
+
+
+
+#add-players-button {
+  height: fit-content;
+}
+
+.players-list {
+
+  height: 200px;
+}
+
+.remove-button {
+  height: fit-content;
+  flex-wrap: row;
+}
+
+.player-name {
+  height: fit-content;
+}

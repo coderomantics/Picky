@@ -1,0 +1,25 @@
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#formT {
+  
+  text-align: center;
+  height: fit-content;
+}
+
+.questionT {
+  text-align: center;
+  height: fit-content;
+}
+
+.vote-button {
+  height: fit-content;
+}
+
+.label {
+  align-items: center;
+  justify-content: center;
+}

@@ -3,6 +3,7 @@ import {React} from "react";
 import { ApiClient } from "../apiClient";
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import {Doughnut} from 'react-chartjs-2';
+import '../css/Form.css'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -61,16 +62,16 @@ export default function Form({title, questions, players, setPlayers}) {
   }
 
   return (
-    <div className="form">
+    <div className="form-container">
       <form onSubmit={submitFormHandler}>
-      <h2>{title}</h2>
+      <h2 id='formT'>{title}</h2>
       {questions.map((qn) => (
         <>
-          <h3>{qn}</h3>
+          <h3 className="questionT">{qn}</h3>
           {players.map((p, i) =>
         
-          <label>
-              <input
+          <label className="label">
+              <input className="vote-button"
                 type='radio'
                 name={qn}
                 value={p.name}

@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
+import '../css/Questions.css'
 
 
 
@@ -24,10 +25,10 @@ export default function Questions({ questions, addQuestion, title, setTitle, rem
 
   return (
     <>
-    <div>
+    <div className='questions-container'>
       <div className="form-title">
-        <form >
-        <input
+        <form id='title-form'>
+        <input id='title-input'
           placeholder="Untitled game"
           type='text'
           onChange={(e) => setTitle(e.target.value)}
@@ -36,23 +37,23 @@ export default function Questions({ questions, addQuestion, title, setTitle, rem
       </div>
       
       <div className='questions-cards'>
-      <form onSubmit={addHandler}>
-      <input
+      <form onSubmit={addHandler} id='question-form'>
+      <input id='question-input'
         type='text'
         name='question'
         onChange={(e) => setInputText(e.target.value)}
         value={inputText}
         required/>
-      <button type='submit'> Add </button>
+      <button className='questions-button' type='submit'> Add </button>
      
     
       </form>
       
 
       {questions.map((qn, index) => 
-      <li key={index}>
-        <p>{qn}</p>
-        <button onClick={() => removeQuestion(index)}> X </button>
+      <li className='questions-list' key={index}>
+        <p className='question-name'>{qn}</p>
+        <button className='remove-button' onClick={() => removeQuestion(index)}> X </button>
       </li>)}
       
            
