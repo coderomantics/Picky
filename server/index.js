@@ -4,28 +4,18 @@ const app = express();
 const port = 3008;
 const cors = require('cors');
 const router = require('./router');
-const socketIO = require('socket.io');
+const { mountSocket } = require('./socket')
 
 
 
 app.use(cors())
 const server = http.createServer(app);
-const io = socketIO((server),
-    {
- cors: {
-   origin: "*",
- },
-});
 
-io.on('connection', (socket) => {
-  console.log('a user entered')
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-});
 
 app.use(express.json());
 app.use(router);
+
+const io = mountSocket(server);
 
 
 server.listen(port, () => {
