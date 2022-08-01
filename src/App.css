@@ -52,12 +52,11 @@ nav {
 
 
 
-
 .app-container {
   display: flex;
   flex-direction: column;
-  /* background: rgba(1,7,13,1); */
-  background: #fff;
+  background: rgba(1,7,13,1);
+  /* background: #fff; */
   max-height: 100vh;
   /* background: linear-gradient(180deg, rgba(240,248,254,1) 0%, rgba(57,154,223,1) 20%, rgba(1,90,153,1) 40%, rgba(5,52,88,1) 58%, rgba(1,7,13,1) 70%); */
   

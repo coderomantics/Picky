@@ -5,7 +5,7 @@ import style from '../css/Form.module.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function FormQuestion({qn, players, setPlayers}) {
+export default function FormQuestion({qn, players}) {
   const [clonePlayers, setClonePlayers] = useState(players.map((p) => ({
     name: p.name,
     score: 0

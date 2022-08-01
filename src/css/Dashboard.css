@@ -1,13 +1,95 @@
 #game-header {
   color: pink;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   
-  justify-content: center;
-  margin-top: 200px;
+  height: 828.75px;
+}
+
+
+.pics {
+  display: flex;
+  flex-direction: column;
+  max-height: 828.75px;
+}
+
+#cactus {
+  position: relative;
+  width: 330px;
+  height: 220px;
+  bottom: 800px;
+  left: 120px;
+  transform: rotate(5deg);
+
+
+}
+
+#gem {
+  position: relative;
+  bottom: 840px;
+  width: 220px;
+  height: 155px;
+  left: 10px;
+  transform: rotate(40deg);
+  
+  
+
+}
+
+#new-game-btn {
+  width: 230px;
+  height: fit-content;
+  will-change: transform;
+  transition: transform 450ms;
+  position: relative;
+  left: 100px;
+  bottom: 350px;
+}
+
+#new-game-btn:hover {
+  transform: translateY(-50px);
+  transition: transform 170ms;
+}
+
+#eyeball {
+  width: 370px;
+  position: relative;
+  right: 265px;
+  top: 43px;
+}
+
+
+#mushroom {
+  width: 400px;
+  height: 450px;
+  position: relative;
+  left: 240px;
+  bottom: 340px;
+}
+
+#bears {
+  width: 300px;
+  height: 210px;
+  position: relative;
+  bottom: 1380px;
+  left: 350px;
+  transform: rotate(15deg);
   
 }
 
-#add-btn {
-  color: pink;
-  
+#my-game-btn {
+  width: 220px;
+  height: 550px;
+  position: relative;
+  bottom: 1290px;
+  right: 200px;
+  transform: rotate(-10deg);
+  will-change: transform;
+  transition: transform 450ms;
+}
+
+#my-game-btn:hover {
+  transform: translateY(-50px);
+  transition: transform 170ms;
 }
