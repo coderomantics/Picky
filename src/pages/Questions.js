@@ -52,7 +52,7 @@ export default function Questions({ questions, addQuestion, title, setTitle, rem
 
       {questions.map((qn, index) => 
       <li className='questions-list' key={index}>
-        <p className='question-name'>{qn}</p>
+        <p className='question-name'>{qn.title}</p>
         <button className='remove-button' onClick={() => removeQuestion(index)}> X </button>
       </li>)}
       

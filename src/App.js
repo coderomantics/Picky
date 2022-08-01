@@ -20,13 +20,18 @@ function App() {
 
   const addPlayer = (playerName) => {
     setPlayers(players => [...players, 
-      {name: playerName,
-       score: 0}])
+      {name: playerName}])
    
   } 
   
+  // const addQuestion = (question) => {
+  //   setQuestions(questions => [...questions, question])
+  // }
   const addQuestion = (question) => {
-    setQuestions(questions => [...questions, question])
+    setQuestions(questions => [...questions, {
+      title: question,
+      players
+    }])
   }
 
   function removePlayer(playerIndex) {
