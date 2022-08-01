@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import {GrAddCircle} from 'react-icons/gr';
 import io from 'socket.io-client';
 import '../css/Dashboard.css';
+import { SocketProvider } from '../App';
 
 
-const socket = io('http://127.0.0.1:3008');
+
 export default function Dashboard({title}) {
+  const socket = useContext(SocketProvider);
   const [isConnected, setIsConnected] = useState(socket.connected);
-
+  //just testing socket connection not an actual functionality of app 
   useEffect(() => {
     socket.on('connect', () => {
       setIsConnected(true);

@@ -1,9 +1,10 @@
 
-import {React} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import { ApiClient } from "../apiClient";
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import {Doughnut} from 'react-chartjs-2';
-import '../css/Form.css'
+import '../css/Form.css';
+import { SocketProvider} from '../App';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -11,8 +12,13 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 export default function Form({title, questions, players, setPlayers}) {
+
+  const [selectedPlayer, setSelectedPlayer] = useState({
+    score: 0,
+    name: ""
+  })
+  const socket = useContext(SocketProvider)
   
-  console.log(players)
   const data = {
     labels: players.map((p) => p.name),
     datasets: [
@@ -40,21 +46,14 @@ export default function Form({title, questions, players, setPlayers}) {
     ],
   };
 
-  
+  useEffect(() => {
+    //Whenever players have been updated, the event will be emitted to socket.io
+    socket.emit("update-players", players)
+  }, [players])
   
   const api = new ApiClient();
 
-  function answerHandler (event) {
-    
-    setPlayers(players =>
-      players.map((obj) => {
-        if (obj.name === event.target.value) {
-          return {...obj, score: 1};
-        } else  {
-          return {...obj, score: 0};
-        }
-      }))  
-  }
+  //post req unfinished
  
   function submitFormHandler (event) {
     event.preventDefault();
@@ -68,22 +67,60 @@ export default function Form({title, questions, players, setPlayers}) {
       {questions.map((qn) => (
         <>
           <h3 className="questionT">{qn}</h3>
+          <ul>
           {players.map((p, i) =>
+            <li key={p.name}>
+            <label className="label">
+             <input className="vote-button"
+               type='radio'
+               name={qn}
+               value={p.name}
+   
+               onClick={(event) => {
+                 const elem = event.target
+                 //Name of the newly selected player
+                 const value = elem.value
+
+                 setPlayers((prev) => {
+                   console.log('cleaning up')
+                   const cloned = [...prev]
+
+                   //Reduce the score of the previously selected player by 1
+                   const oldPlayerIndex = cloned.findIndex((player) => player.name === selectedPlayer.name)
+                   if(oldPlayerIndex !== -1){
+                     //selectedPlayer exists
+                     const oldPlayer = cloned[oldPlayerIndex];
+                     oldPlayer.score = oldPlayer.score > 0 ? oldPlayer.score - 1 : 0;
+                     cloned[oldPlayerIndex] = oldPlayer
+                   }
+
+                   //Increse the score of the newly selected player by 1
+                   const newPlayerIndex = cloned.findIndex((player) => player.name === value)
+                   const newPlayer = cloned[newPlayerIndex]
+                   newPlayer.score ++
+                                       
+                   cloned[newPlayerIndex] = newPlayer
+
+                   return cloned
+                 })
+
+                 //Set the selected player and render the donut
+                 setSelectedPlayer(players.find((player) => player.name === value))
+               }}
+       
+               required />
+             {p.name}
+           </label>
+           </li>
+         )}   
+         </ul>
+      
+         {selectedPlayer && <Doughnut data={data} width={"100vw"} height={"200px"} options={{ maintainAspectRatio: false }}/>}
+            
         
-          <label className="label">
-              <input className="vote-button"
-                type='radio'
-                name={qn}
-                value={p.name}
     
-                onClick={(event) => answerHandler(event, i)}
-        
-                required />
-              {p.name}
-              <Doughnut data={data} />
-            </label>
      
-          )}   
+           
        
       
           
@@ -91,7 +128,7 @@ export default function Form({title, questions, players, setPlayers}) {
         </>
       ))
       }
-        {/* <button type='submit'> SAVE RESPONSES</button>  HAHAHA BUTTON DONT WORK*/}
+        {/* <button type='submit'> SAVE RESPONSES</button>  HAHAHA BUTTON DOESNT WORK*/}
       </form>
               
     </div>

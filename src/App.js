@@ -1,10 +1,15 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import AddPlayer from './pages/AddPlayers';
 import Questions from './pages/Questions';
 import Form from './pages/Form'
 import {Routes, Route, Link} from 'react-router-dom'; 
 import Dashboard from './pages/Dashboard';
+import io from 'socket.io-client';
+
+export const SocketProvider = React.createContext();
+
+const socket = io('http://127.0.0.1:3008');
 
 
 function App() {
@@ -18,7 +23,7 @@ function App() {
       {name: playerName,
        score: 0}])
    
-  } // -> ['jess']
+  } 
   
   const addQuestion = (question) => {
     setQuestions(questions => [...questions, question])
@@ -50,7 +55,8 @@ function App() {
 
   return (
     <> 
-      <div className="app-container">
+     <SocketProvider.Provider value={socket}>
+     <div className="app-container">
       <nav>
         <Link style={{textDecoration: 'none'}} to='/'>
         <ul className='app-name'>
@@ -72,6 +78,8 @@ function App() {
 
 
     </div>
+     </SocketProvider.Provider>
+      
   </>
    
   );
