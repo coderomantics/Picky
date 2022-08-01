@@ -5,6 +5,7 @@ import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import {Doughnut} from 'react-chartjs-2';
 import '../css/Form.css';
 import { SocketProvider} from '../App';
+import style from '../css/Form.module.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -62,12 +63,12 @@ export default function Form({title, questions, players, setPlayers}) {
 
   return (
     <div className="form-container">
-      <form onSubmit={submitFormHandler}>
+      <form className={style["form"]} onSubmit={submitFormHandler}>
       <h2 id='formT'>{title}</h2>
       {questions.map((qn) => (
         <>
           <h3 className="questionT">{qn}</h3>
-          <ul>
+          <ul className={style["player-list"]}>
           {players.map((p, i) =>
             <li key={p.name}>
             <label className="label">

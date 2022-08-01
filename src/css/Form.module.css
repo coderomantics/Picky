@@ -1,0 +1,20 @@
+.form {
+  width: 100%;
+}
+
+.player-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+}
+
+.player-list li {
+  
+  height: fit-content;
+}
+
+.player-list li:not(:last-of-type) {
+  margin-right: 50px;
+}
