@@ -16,23 +16,42 @@ function App() {
   const [players, setPlayers] = useState([])
   const [title, setTitle] = useState('')
   const [questions, setQuestions] = useState([])
+
+  socket.on('player-update-broadcast', (data) => {
+    console.log(data);
+    setPlayers(data);
+  })
+
+  socket.on('question-update-broadcast', (data) => {
+    setQuestions(data);
+  })
+
+  socket.on('title-update-broadcast', (data) => {
+    setTitle(data);
+    console.log('title', data)
+  })
   
 
   const addPlayer = (playerName) => {
-    setPlayers(players => [...players, 
-      {name: playerName}])
-   
+    const newPlayers = [...players, {name: playerName}]
+    socket.emit('update-players', newPlayers)
+    setPlayers(newPlayers)
   } 
   
-  // const addQuestion = (question) => {
-  //   setQuestions(questions => [...questions, question])
-  // }
   const addQuestion = (question) => {
-    setQuestions(questions => [...questions, {
+    const newQuestions = [...questions, {
       title: question,
       players
-    }])
+    }]
+    socket.emit('update-questions', newQuestions)
+    setQuestions(newQuestions)
   }
+  // const addQuestion = (question) => {
+  //   setQuestions(questions => [...questions, {
+  //     title: question,
+  //     players
+  //   }])
+  // }
 
   function removePlayer(playerIndex) {
     const newList = players.filter((_, index) => index !== playerIndex )
@@ -44,18 +63,7 @@ function App() {
     setQuestions(newList);
   }
 
-  //HELPER FUNCTIONS
-  // const playersObj = players.map((player) => (
-  //   {name: player, picked: false}
-  // ))
-
-  // //console.log(playersObj)
-
-  // const questionsObj = questions.map((question) => (
-  //   {title: question, players: playersObj}
-  // ))
-
-  //console.log(questionsObj) 
+ 
 
 
   return (

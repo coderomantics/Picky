@@ -22,8 +22,8 @@ export default function FormQuestion({qn, players}) {
   
   useEffect(() => {
     //Whenever players have been updated, the event will be emitted to socket.io
-    socket.emit("update-vote", selectedPlayer)
-  }, [selectedPlayer])
+    socket.emit("update-vote", clonePlayers)
+  }, [clonePlayers])
 
   // const submitVote = () => {
   //   socket.emit('submitVote', toggleVoteHandler)

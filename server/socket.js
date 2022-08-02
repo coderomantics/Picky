@@ -15,17 +15,46 @@ const mountSocket = (server) => {
         },
     });
 
+    let questions = [];
+    let players = [];
+    let results = [];
+    let title =''
+
     //io is the builder/static instance, not the connected socket
     //socket is the connected instance
     //so add event handler to socket instead of io i think
     io.on('connection', (socket) => {
-        console.log('a user entered')
+
+        socket.emit('player-update-broadcast', players)
+        socket.emit('question-update-broadcast', questions)
+        socket.emit('title-update-broadcast', title)
+
+        console.log(`a user entered: ${socket.id}`)
         socket.on('disconnect', () => {
           console.log('user disconnected');
         });
 
         socket.on('update-players', (args) => {
             console.log('chekc args', args)
+            players = args
+            console.log(players)
+            // socket.broadcast.emit('player-update-broadcast', players)
+            // Saving data here
+            // saveResult()
+        })
+
+        socket.on('update-questions', (args) => {
+            questions = args;
+            console.log(questions)
+        })
+
+        // socket.on('submitVote', (data) => {
+        //    console.log(data)
+        //    socket.broadcast.emit('updateVotes', data)
+        // })
+
+        socket.on('update-vote', (args) => {
+            console.log('chekc vote', args)
             // Saving data here
             // saveResult()
         })

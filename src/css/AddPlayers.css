@@ -87,6 +87,7 @@ input[type=text] {
 }
 
 .players-list {
+  list-style: none;
   height: fit-content;
   position: relative;
   /* bottom: 500px; */
