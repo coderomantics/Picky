@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import {Doughnut} from 'react-chartjs-2';
+import { SocketProvider } from '../App';
 
 import '../css/FormQuestion.css'
 
@@ -8,6 +9,7 @@ import '../css/FormQuestion.css'
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function FormQuestion({qn, players}) {
+  const socket = useContext(SocketProvider);
   const [clonePlayers, setClonePlayers] = useState(players.map((p) => ({
     name: p.name,
     score: 0
@@ -16,7 +18,16 @@ export default function FormQuestion({qn, players}) {
   const [selectedPlayer, setSelectedPlayer] = useState({
     name: '',
     score: 0
-  })
+  }) 
+  
+  useEffect(() => {
+    //Whenever players have been updated, the event will be emitted to socket.io
+    socket.emit("update-vote", selectedPlayer)
+  }, [selectedPlayer])
+
+  // const submitVote = () => {
+  //   socket.emit('submitVote', toggleVoteHandler)
+  // } //then put submitVote in onclick
  
   const data = {
     labels: clonePlayers.map((p) => p.name),
@@ -49,8 +60,8 @@ export default function FormQuestion({qn, players}) {
 
   return (
     <>
-      <div className='question-card-container'>
-      <h3 className="questionT">{qn.title}</h3>
+      
+      <p className="questionT">{qn.title}</p>
           <ul className='options'>
           {clonePlayers.map((p, i) =>
             <li className='option' key={p.name}>
@@ -105,7 +116,6 @@ export default function FormQuestion({qn, players}) {
          {selectedPlayer && <Doughnut data={data} width={"200px"} height={"200px"} options={{ maintainAspectRatio: false }}/>} 
          </div>
           
-      </div>
       
             
         

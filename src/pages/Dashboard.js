@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import {GrAddCircle} from 'react-icons/gr';
-import io from 'socket.io-client';
+
 import '../css/Dashboard.css';
 import { SocketProvider } from '../App';
 
@@ -27,6 +27,8 @@ export default function Dashboard({title}) {
       socket.off('disconnect');
     }
   }, [])
+
+  
 
   return (
   

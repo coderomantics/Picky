@@ -1,2 +1,33 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  
+}
 
+#formT {
+  text-align: center;
+  font-size: 50px;
+  height: fit-content;
+}
+
+.question-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black;
+  
+  
+}
+
+.doughnut {
+  display: flex;
+
+  position: relative;
+  left: 400px;
+  bottom: 60px;
+  
+  width: 30%;
+}
 

@@ -1,1 +1,18 @@
+.questionT {
+  float: left;
+  padding-left: 20px;
+  font-size: 30px;
+}
 
+.options {
+  list-style: none;
+  
+}
+
+.option {
+  height: fit-content;
+}
+
+.vote-button {
+  height: fit-content;
+}
