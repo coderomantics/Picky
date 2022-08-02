@@ -2,7 +2,7 @@
 import React, {useState, useContext, useEffect} from "react";
 import { ApiClient } from "../apiClient";
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
-import {Doughnut} from 'react-chartjs-2';
+
 import '../css/Form.css';
 import { SocketProvider} from '../App';
 import style from '../css/Form.module.css';
@@ -73,6 +73,7 @@ export default function Form({title, questions, players, setPlayers}) {
     <div className="form-container">
       <form className={style["form"]} onSubmit={submitFormHandler}>
       <h2 id='formT'>{title}</h2>
+     
       {questions.map((qn) => (
         <FormQuestion qn={qn} players={players}/>
         

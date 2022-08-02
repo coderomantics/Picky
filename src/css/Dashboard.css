@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   max-height: 828.75px;
+  margin-top: 25px;
 }
 
 #cactus {
@@ -51,6 +52,11 @@
   transform: translateY(-50px);
   transition: transform 170ms;
 }
+
+#new-game-btn:hover:before {
+  content:
+  "New Game";
+  }
 
 #eyeball {
   width: 370px;

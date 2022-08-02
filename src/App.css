@@ -4,8 +4,8 @@
 
 nav {
   display: inline;
-  
-  height: 260px;
+  margin-top: 15px;
+  height: 150px;
   text-align: center;
  
   
@@ -19,7 +19,7 @@ nav {
   
   
   font-size: 200px;
-  /* line-height: 84%; */
+  line-height: 84%;
   font-family: Modak;
   
   background-clip: text;

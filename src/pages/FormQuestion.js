@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import {Doughnut} from 'react-chartjs-2';
-import style from '../css/Form.module.css';
+
+import '../css/FormQuestion.css'
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -42,14 +44,16 @@ export default function FormQuestion({qn, players}) {
         borderWidth: 1,
       },
     ],
+    
   };
 
   return (
     <>
+      <div className='question-card-container'>
       <h3 className="questionT">{qn.title}</h3>
-          <ul className={style["player-list"]}>
+          <ul className='options'>
           {clonePlayers.map((p, i) =>
-            <li key={p.name}>
+            <li className='option' key={p.name}>
             <label className="label">
              <input className="vote-button"
                type='radio'
@@ -60,6 +64,7 @@ export default function FormQuestion({qn, players}) {
                  const elem = event.target
                  //Name of the newly selected player
                  const value = elem.value
+                 console.log('hi')
 
                  setClonePlayers((prev) => {
                    
@@ -96,8 +101,12 @@ export default function FormQuestion({qn, players}) {
            
          )}   
          </ul>
+         <div className='doughnut'>
+         {selectedPlayer && <Doughnut data={data} width={"200px"} height={"200px"} options={{ maintainAspectRatio: false }}/>} 
+         </div>
+          
+      </div>
       
-          {selectedPlayer && <Doughnut data={data} width={"100vw"} height={"200px"} options={{ maintainAspectRatio: false }}/>} 
             
         
     
