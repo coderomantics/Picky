@@ -28,6 +28,8 @@ const mountSocket = (server) => {
         socket.emit('player-update-broadcast', players)
         socket.emit('question-update-broadcast', questions)
         socket.emit('title-update-broadcast', title)
+        socket.emit('votes-update-broadcast', results)
+        
 
         console.log(`a user entered: ${socket.id}`)
         socket.on('disconnect', () => {
@@ -38,7 +40,7 @@ const mountSocket = (server) => {
             console.log('chekc args', args)
             players = args
             console.log(players)
-            // socket.broadcast.emit('player-update-broadcast', players)
+            socket.broadcast.emit('player-update-broadcast', players)
             // Saving data here
             // saveResult()
         })
@@ -46,18 +48,27 @@ const mountSocket = (server) => {
         socket.on('update-questions', (args) => {
             questions = args;
             console.log(questions)
+            socket.broadcast.emit('question-update-broadcast', questions)
         })
 
-        // socket.on('submitVote', (data) => {
-        //    console.log(data)
-        //    socket.broadcast.emit('updateVotes', data)
+        socket.on('update-title', (args) => {
+            title = args;
+            socket.broadcast.emit('title-update-broadcast', title)
+        })
+
+
+        socket.on('submit-vote', (args) => {
+           results = args;
+           console.log('results', results)
+           socket.broadcast.emit('vote-update-broadcast', results)
+        // io.emit('submit-vote', args)
+        })
+
+        // socket.on('update-vote', (args) => {
+        //     console.log('chekc vote', args)
+        //     // Saving data here
+        //     // saveResult()
         // })
-
-        socket.on('update-vote', (args) => {
-            console.log('chekc vote', args)
-            // Saving data here
-            // saveResult()
-        })
     });
 
     return io

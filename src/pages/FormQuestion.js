@@ -8,33 +8,57 @@ import '../css/FormQuestion.css'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function FormQuestion({qn, players}) {
+export default function FormQuestion({qn, players, voteForPlayer}) {
   const socket = useContext(SocketProvider);
-  const [clonePlayers, setClonePlayers] = useState(players.map((p) => ({
-    name: p.name,
-    score: 0
-  })))
+  // const [clonePlayers, setClonePlayers] = useState(players.map((p) => ({
+  //   name: p.name,
+  //   score: 0
+  // })))
 
   const [selectedPlayer, setSelectedPlayer] = useState({
     name: '',
     score: 0
   }) 
   
-  useEffect(() => {
-    //Whenever players have been updated, the event will be emitted to socket.io
-    socket.emit("update-vote", clonePlayers)
-  }, [clonePlayers])
+  // useEffect(() => {
+  //   //Whenever players have been updated, the event will be emitted to socket.io
+  //   socket.emit("update-vote", clonePlayers)
+  // }, [clonePlayers])
 
-  // const submitVote = () => {
-  //   socket.emit('submitVote', toggleVoteHandler)
+  
+
+  
   // } //then put submitVote in onclick
+  const toggleVoteHandler = (event) => {
+    // const elem = event.target.value
+    //Name of the newly selected player
+    
+    const value = event.target.value
+    voteForPlayer(qn, value)
+
+    //Set the selected player and render the donut
+    setSelectedPlayer(players.find((player) => player.name === value))
+    
+  }
+
+  // const submitVote = (e) => {
+  //   socket.emit('submit-vote', toggleVoteHandler(e))
+  // }
+
+  // socket.on('votes-update-broadcast', (data) => {
+  //   setClonePlayers(data);
+  //   console.log('score', data)
+  // })
+
+  // console.log(clonePlayers)
+  
  
   const data = {
-    labels: clonePlayers.map((p) => p.name),
+    labels: players.map((p) => p.name),
     datasets: [
       {
         label: '# of Votes',
-        data: clonePlayers.map((p) => p.score),  
+        data: players.map((p) => p.score),  
         
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -60,61 +84,31 @@ export default function FormQuestion({qn, players}) {
 
   return (
     <>
-      
+      <div className='card'>
       <p className="questionT">{qn.title}</p>
           <ul className='options'>
-          {clonePlayers.map((p, i) =>
-            <li className='option' key={p.name}>
-            <label className="label">
-             <input className="vote-button"
-               type='radio'
-               name={qn.title}
-               value={p.name}
-   
-               onClick={(event) => {
-                 const elem = event.target
-                 //Name of the newly selected player
-                 const value = elem.value
-                 console.log('hi')
-
-                 setClonePlayers((prev) => {
-                   
-                   const cloned = [...prev]
-                   console.log('see cloned', cloned)
-                   //Reduce the score of the previously selected player by 1
-                   const oldPlayerIndex = cloned.findIndex((player) => player.name === selectedPlayer.name)
-                   if(oldPlayerIndex !== -1){
-                     //selectedPlayer exists
-                     const oldPlayer = cloned[oldPlayerIndex];
-                     oldPlayer.score = oldPlayer.score > 0 ? oldPlayer.score - 1 : 0;
-                     cloned[oldPlayerIndex] = oldPlayer
-                   }
-
-                   //Increse the score of the newly selected player by 1
-                   const newPlayerIndex = cloned.findIndex((player) => player.name === value)
-                   const newPlayer = cloned[newPlayerIndex]
-                   newPlayer.score ++
-                                       
-                   cloned[newPlayerIndex] = newPlayer
-
-                   return cloned
-                 })
-
-                 //Set the selected player and render the donut
-                 setSelectedPlayer(players.find((player) => player.name === value))
-                 
-               }}
-       
-               required />
-             {p.name}
-           </label>
-           </li>
-           
-         )}   
+          {players.map((p, i) => {
+            return <li className='option' key={p.name}>
+              <label className="label">
+              <input className="vote-button"
+                type='radio'
+                name={qn.title}
+                value={p.name}
+    
+                onClick={(e) => {toggleVoteHandler(e)}}
+        
+                required />
+              {p.name}
+            </label>
+            </li>
+            }
+          )}   
          </ul>
          <div className='doughnut'>
-         {selectedPlayer && <Doughnut data={data} width={"200px"} height={"200px"} options={{ maintainAspectRatio: false }}/>} 
+         {selectedPlayer && <Doughnut data={data} width={"400px"} height={"400px"} options={{ maintainAspectRatio: false }}/>} 
          </div>
+      </div> 
+      
           
       
             

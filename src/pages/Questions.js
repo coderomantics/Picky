@@ -1,11 +1,13 @@
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import {Link} from 'react-router-dom';
-import '../css/Questions.css'
+import { SocketProvider } from '../App';
+import '../css/Questions.css';
+
 
 
 
 export default function Questions({ questions, addQuestion, title, setTitle, removeQuestion }) {
- 
+  const socket = useContext(SocketProvider);
   const [inputText, setInputText] = useState('')
   
   function addHandler (event) {
@@ -17,21 +19,21 @@ export default function Questions({ questions, addQuestion, title, setTitle, rem
     setInputText('')
   }
 
-  function addTitle (event) {
-    event.preventDefault();
-    setTitle(inputText)
-  }
+  const updateTitle = (titleName) => {
+    socket.emit('update-title', titleName );
+    setTitle(titleName);
+  } 
   
 
   return (
     <>
     <div className='questions-container'>
       <div className="title-container">
-        <form id='title-form'>
+        <form id='title-form' onSubmit={(e) => e.preventDefault()}>
         <input id='title-input'
           placeholder="Untitled game"
           type='text'
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => updateTitle(e.target.value)}
           value={title}/>
         </form>
       </div>
@@ -65,7 +67,7 @@ export default function Questions({ questions, addQuestion, title, setTitle, rem
       
            
     </div> 
-      <Link style={{textDecoration: 'none'}} to='/form'> <p id='save-game'>Save Game</p> {addTitle}</Link>
+      <Link style={{textDecoration: 'none'}} to='/form'> <p id='save-game'>Save Game</p></Link>
       
     </div>
     </>

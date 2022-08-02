@@ -13,16 +13,16 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 
-export default function Form({title, questions, players, setPlayers}) {
+export default function Form({title, questions, players, voteForPlayer}) {
 
   
-  const socket = useContext(SocketProvider)
+  // const socket = useContext(SocketProvider)
   
 
-  useEffect(() => {
-    //Whenever players have been updated, the event will be emitted to socket.io
-    socket.emit("update-players", players)
-  }, [players])
+  // useEffect(() => {
+  //   //Whenever players have been updated, the event will be emitted to socket.io
+  //   socket.emit("update-players", players)
+  // }, [players])
   
   // const api = new ApiClient();
 
@@ -44,8 +44,8 @@ export default function Form({title, questions, players, setPlayers}) {
       {/* <form className={style["form"]} onSubmit={submitFormHandler}> */}
       <p id='formT'>{title}</p>
       <div className='question-card-container'>
-       {questions.map((qn) => (
-        <FormQuestion qn={qn} players={players}/>
+       {questions.map((qn, i) => (
+        <FormQuestion key={i} qn={qn} players={players} voteForPlayer={voteForPlayer}/>
         
        ))
       }
