@@ -26,7 +26,7 @@ export default function Questions({ questions, addQuestion, title, setTitle, rem
   return (
     <>
     <div className='questions-container'>
-      <div className="form-title">
+      <div className="title-container">
         <form id='title-form'>
         <input id='title-input'
           placeholder="Untitled game"
@@ -40,25 +40,32 @@ export default function Questions({ questions, addQuestion, title, setTitle, rem
       <form onSubmit={addHandler} id='question-form'>
       <input id='question-input'
         type='text'
+        placeholder='Question 1'
         name='question'
         onChange={(e) => setInputText(e.target.value)}
         value={inputText}
         required/>
-      <button className='questions-button' type='submit'> Add </button>
+     
+      <button className='add-qn-button' type='submit'> Add </button>
+      
+      
      
     
       </form>
+      </div>
       
-
+    <div className='qn-list-container'>
       {questions.map((qn, index) => 
       <li className='questions-list' key={index}>
         <p className='question-name'>{qn.title}</p>
+      
         <button className='remove-button' onClick={() => removeQuestion(index)}> X </button>
+      
       </li>)}
       
            
-      </div>
-      <Link to='/form'> Save Game {addTitle}</Link>
+    </div> 
+      <Link style={{textDecoration: 'none'}} to='/form'> <p id='save-game'>Save Game</p> {addTitle}</Link>
       
     </div>
     </>
