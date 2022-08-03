@@ -1,20 +1,51 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import {Doughnut} from 'react-chartjs-2';
 import { SocketProvider } from '../App';
 
 import '../css/FormQuestion.css'
 
+const calculateScoreFromVotes = (qn, players) => {
+  const cloned = [...players.map(({ name }) => ({
+    name,
+    score: 0
+  }))]
+
+  // Example input in qn.votes
+  // votes = [{
+  //   name: "foo"
+  // }, {
+  //   name: "bar"
+  // }, {
+  //   name: "foo"
+  // }]
+  for (const vote of qn.votes) {
+    const index = cloned.findIndex((r) => {
+      return r.name === vote.name
+    })
+
+    if(index !== -1){
+      cloned[index].score = cloned[index].score + 1
+    }
+  }
+
+  // Expected output
+  // [{
+  //   name: "foo",
+  //   score: 2
+  // }, {
+  //   name: "bar",
+  //   score: 1
+  // }]
+
+  return cloned 
+}
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function FormQuestion({qn, players, voteForPlayer}) {
   const socket = useContext(SocketProvider);
-  // const [clonePlayers, setClonePlayers] = useState(players.map((p) => ({
-  //   name: p.name,
-  //   score: 0
-  // })))
-
+  
   const [selectedPlayer, setSelectedPlayer] = useState({
     name: '',
     score: 0
@@ -40,41 +71,27 @@ export default function FormQuestion({qn, players, voteForPlayer}) {
     setSelectedPlayer(players.find((player) => player.name === value))
     
   }
-
-  // const submitVote = (e) => {
-  //   socket.emit('submit-vote', toggleVoteHandler(e))
-  // }
-
-  // socket.on('votes-update-broadcast', (data) => {
-  //   setClonePlayers(data);
-  //   console.log('score', data)
-  // })
-
-  // console.log(clonePlayers)
   
- 
   const data = {
-    labels: players.map((p) => p.name),
+    labels: calculateScoreFromVotes(qn, players).map((p) => p.name),
     datasets: [
       {
         label: '# of Votes',
-        data: players.map((p) => p.score),  
+        data: calculateScoreFromVotes(qn, players).map((p) => p.score),  
         
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
+          'rgba(115, 210, 222)',
+          'rgba(33, 131, 128)',
+          'rgba(143, 45, 86)',
+          'rgba(216, 17, 89)',
+          'rgba(255, 188, 66)',
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
+          'rgba(115, 210, 222)',
+          'rgba(33, 131, 128)',
+          'rgba(143, 45, 86)',
+          'rgba(216, 17, 89)',
+          'rgba(255, 188, 66)',
         ],
         borderWidth: 1,
       },
@@ -84,35 +101,36 @@ export default function FormQuestion({qn, players, voteForPlayer}) {
 
   return (
     <>
-      <div className='card'>
+    <div className='card'>
       <p className="questionT">{qn.title}</p>
-          <ul className='options'>
-          {players.map((p, i) => {
-            return <li className='option' key={p.name}>
-              <label className="label">
-              <input className="vote-button"
-                type='radio'
-                name={qn.title}
-                value={p.name}
-    
-                onClick={(e) => {toggleVoteHandler(e)}}
+      <ul className='options'>
+        {players.map((p, i) => {
+          return <li className='option' key={p.name}>
+            <label className="label">
+            <input className="vote-button"
+              type='radio'
+              name={qn.title}
+              value={p.name}
+
+              onClick={(e) => {toggleVoteHandler(e)}}
+      
+              required />
         
-                required />
               {p.name}
             </label>
-            </li>
-            }
-          )}   
-         </ul>
-         <div className='doughnut'>
-         {selectedPlayer && <Doughnut data={data} width={"400px"} height={"400px"} options={{ maintainAspectRatio: false }}/>} 
-         </div>
-      </div> 
-      
+          </li>
+          }
+        )}   
+      </ul>
+      <div className='doughnut'>
+        {selectedPlayer && <Doughnut data={data} width={"400px"} height={"400px"} options={{ maintainAspectRatio: false }}/>} 
+      </div>
+    </div> 
+    
+        
+    
           
       
-            
-        
     
      
            

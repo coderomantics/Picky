@@ -39,35 +39,36 @@ export default function Questions({ questions, addQuestion, title, setTitle, rem
       </div>
       
       <div className='questions-cards'>
-      <form onSubmit={addHandler} id='question-form'>
-      <input id='question-input'
-        type='text'
-        placeholder='Question 1'
-        name='question'
-        onChange={(e) => setInputText(e.target.value)}
-        value={inputText}
-        required/>
-     
-      <button className='add-qn-button' type='submit'> Add </button>
+        <form onSubmit={addHandler} id='question-form'>
+        <input id='question-input'
+          type='text'
+          placeholder='Question 1'
+          name='question'
+          onChange={(e) => setInputText(e.target.value)}
+          value={inputText}
+          required/>
+      
+        <button className='add-qn-button' type='submit'> Add </button>
+        
+        
       
       
-     
-    
-      </form>
+        </form>
       </div>
+
       
-    <div className='qn-list-container'>
-      {questions.map((qn, index) => 
-      <li className='questions-list' key={index}>
-        <p className='question-name'>{qn.title}</p>
-      
-        <button className='remove-button' onClick={() => removeQuestion(index)}> X </button>
-      
-      </li>)}
-      
-           
-    </div> 
-      <Link style={{textDecoration: 'none'}} to='/form'> <p id='save-game'>Save Game</p></Link>
+      <div className='qn-list-container'>
+        {questions.map((qn, index) => 
+        <li className='questions-list' key={index}>
+          <p className='question-name'>{qn.title}</p>
+        
+          <button className='remove-button' onClick={() => removeQuestion(index)}> X </button>
+        
+        </li>)}
+        
+            
+      </div> 
+        <Link style={{textDecoration: 'none'}} to='/form'> <p id='save-game'>Save Game</p></Link>
       
     </div>
     </>

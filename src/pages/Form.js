@@ -1,11 +1,10 @@
 
-import React, {useState, useContext, useEffect} from "react";
-import { ApiClient } from "../apiClient";
+import React, {useContext} from "react";
+// import { ApiClient } from "../apiClient";
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 
 import '../css/Form.css';
 import { SocketProvider} from '../App';
-import style from '../css/Form.module.css';
 import FormQuestion from './FormQuestion'
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -14,7 +13,8 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 export default function Form({title, questions, players, voteForPlayer}) {
-
+  // console.log('check players', players)
+  // const socket = useContext(SocketProvider)
   
   // const socket = useContext(SocketProvider)
   
@@ -33,26 +33,22 @@ export default function Form({title, questions, players, voteForPlayer}) {
   //   api.postFilledForm(players)
   // }
 
-  //create a component for one question and result
-  //bring selectedplayer and map function there
-  //
+  
 
 
 
   return (
     <div className="form-container">
-      {/* <form className={style["form"]} onSubmit={submitFormHandler}> */}
       <p id='formT'>{title}</p>
       <div className='question-card-container'>
        {questions.map((qn, i) => (
-        <FormQuestion key={i} qn={qn} players={players} voteForPlayer={voteForPlayer}/>
+        
+        <FormQuestion key={i} questions={questions} qn={qn} players={players} voteForPlayer={voteForPlayer}/>
         
        ))
       }
       </div>
       
-        {/* <button type='submit'> SAVE RESPONSES</button>  HAHAHA BUTTON DOESNT WORK*/}
-      {/* </form> */}
               
     </div>
   )
