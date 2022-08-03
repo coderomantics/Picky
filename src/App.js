@@ -11,39 +11,36 @@ export const SocketProvider = React.createContext();
 
 const socket = io('http://127.0.0.1:3008');
 
-
 function App() {
   const [players, setPlayers] = useState([])
   const [title, setTitle] = useState('')
-  const [questions, setQuestions] = useState([
-    {
-      title: "who is cooler?",
-      votes: [
-        { clientId: 34567890, player: 'ching' }
-      ]
-    }
-  ])
+  const [questions, setQuestions] = useState([])
 
-  console.log(socket.id)
-
-  socket.on('player-update-broadcast', (data) => {
-    console.log(data);
-    setPlayers(data);
-  })
-
-  socket.on('question-update-broadcast', (data) => {
-    setQuestions(data);
-  })
-
-  socket.on('title-update-broadcast', (data) => {
-    setTitle(data);
-    console.log('title', data)
-  })
+  useEffect(() => {
+    socket.on('player-update-broadcast', (data) => {
+      console.log('player-update-braodcast', data);
+      setPlayers(data);
+    })
   
+    socket.on('question-update-broadcast', (data) => {
+      console.log('updating question based on backend event', data)
+      setQuestions(data);
+    })
+  
+    socket.on('title-update-broadcast', (data) => {
+      setTitle(data);
+      console.log('title', data)
+    })
 
+    return () => {
+      socket.off('player-update-broadcast');
+      socket.off('question-update-broadcast');
+      socket.off('title-update-broadcast');
+    }
+  }, [])
+  
   const addPlayer = (playerName) => {
-    const newPlayers = [...players, {name: playerName}];
-    console.log(newPlayers);
+    const newPlayers = [...players, { name: playerName}];
     socket.emit('update-players', newPlayers);
     setPlayers(newPlayers);
   } 
@@ -56,41 +53,22 @@ function App() {
   }
 
   const voteForPlayer = (question, playerName) => {
-    // setQUESTIONS...
+    const cloned = [...questions]
+    const questionIndex = cloned.findIndex((item) => item.title === question.title)
 
-    // get the socket clientId
-    // socket.id
-    
-    // remove/change existing vote on question with matching socket it
+    const voteIndex = cloned[questionIndex].votes.findIndex((vote) => vote.clientId === socket.id)
 
+    if(voteIndex !== -1){
+      cloned[questionIndex].votes[voteIndex].name = playerName
+    } else{
+      cloned[questionIndex].votes.push({
+        name: playerName,
+        clientId: socket.id
+      })
+    }
 
-    // add player name along with socket id to array of votes on selected question
-
-
-    setPlayers((prev) => {
-      
-      const cloned = [...prev]
-      
-      //Reduce the score of the previously selected player by 1
-      const oldPlayerIndex = cloned.findIndex((player) => player.name === playerName)
-      if(oldPlayerIndex !== -1){
-        //selectedPlayer exists
-        const oldPlayer = cloned[oldPlayerIndex];
-        oldPlayer.score = oldPlayer.score > 0 ? oldPlayer.score - 1 : 0;
-        cloned[oldPlayerIndex] = oldPlayer
-      }
-
-      //Increse the score of the newly selected player by 1
-      const newPlayerIndex = cloned.findIndex((player) => player.name === playerName)
-      const newPlayer = cloned[newPlayerIndex]
-      newPlayer.score ++
-                          
-      cloned[newPlayerIndex] = newPlayer
-
-      socket.emit('update-players', cloned)
-
-      return cloned
-    })
+    socket.emit('update-questions', cloned)
+    setQuestions(cloned)
   }
   
   const addQuestion = (question) => {
