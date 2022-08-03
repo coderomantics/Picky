@@ -1,5 +1,3 @@
-const { saveResult } = require('./services')
-
 const socketIO = require('socket.io');
 
 //To display the number of client in the frontend
@@ -17,18 +15,17 @@ const mountSocket = (server) => {
 
     let questions = [];
     let players = [];
-    let results = [];
+    //let results = [];
     let title =''
 
     //io is the builder/static instance, not the connected socket
     //socket is the connected instance
     //so add event handler to socket instead of io i think
     io.on('connection', (socket) => {
-
         socket.emit('player-update-broadcast', players)
         socket.emit('question-update-broadcast', questions)
         socket.emit('title-update-broadcast', title)
-        socket.emit('votes-update-broadcast', results)
+        // socket.emit('votes-update-broadcast', results)
         
 
         console.log(`a user entered: ${socket.id}`)
@@ -41,8 +38,7 @@ const mountSocket = (server) => {
             players = args
             console.log(players)
             socket.broadcast.emit('player-update-broadcast', players)
-            // Saving data here
-            // saveResult()
+            
         })
 
         socket.on('update-questions', (args) => {
@@ -57,18 +53,6 @@ const mountSocket = (server) => {
         })
 
 
-        socket.on('submit-vote', (args) => {
-           results = args;
-           console.log('results', results)
-           socket.broadcast.emit('vote-update-broadcast', results)
-        // io.emit('submit-vote', args)
-        })
-
-        // socket.on('update-vote', (args) => {
-        //     console.log('chekc vote', args)
-        //     // Saving data here
-        //     // saveResult()
-        // })
     });
 
     return io
