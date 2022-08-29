@@ -32,7 +32,7 @@ export default function Dashboard({title}) {
 
   return (
   
-    <div id='game-header'>
+    <div className='pick-container'>
       <div className='pics'>
           <img id='eyeball' src='/eyeball2.png' alt='img'/>
           <Link style={{height: 'fit-content'}} to='/players'>
