@@ -11,8 +11,9 @@
 .pics {
   display: flex;
   flex-direction: column;
-  max-height: 828.75px;
+  /* max-height: 828.75px; */
   margin-top: 35px;
+  height: 600px;
 }
 
 #cactus {
@@ -87,9 +88,9 @@
 #my-game-btn {
   width: 220px;
   height: 550px;
-  position: relative;
+  /* position: relative;
   bottom: 1290px;
-  right: 200px;
+  right: 200px; */
   transform: rotate(-10deg);
   will-change: transform;
   transition: transform 450ms;
@@ -98,4 +99,27 @@
 #my-game-btn:hover {
   transform: translateY(-50px);
   transition: transform 170ms;
+  
+}
+
+
+
+.link {
+  display: flex;
+  height: fit-content;
+  position: fixed;
+  left: 380px;
+  bottom: -170px;
+  
+
+}
+
+#tippy-2 {
+  color: red;
+  font-size: 25px;
+}
+
+#tippy-1 {
+  color: rgb(237, 144, 160);
+  font-size: 25px
 }
