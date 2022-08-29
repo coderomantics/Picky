@@ -18,8 +18,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
-  height: 100vh;
+  background-color: rgba(1,7,13,1);
+
   
 }
 

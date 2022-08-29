@@ -55,7 +55,7 @@ export default function Dashboard({title}) {
           <img id='bears' src='/gummybears.png' alt='img'/>
           <div className='link'>
           
-            <Link style={{height: 'fit-content'}} to='/form'>  
+            <Link style={{height: '300px'}} to='/form'>  
             <Tippy content="Go to game" className='tippy-red'>
               <img id='my-game-btn'
               src='/heart.png'
