@@ -7,6 +7,7 @@ import Tippy from '@tippyjs/react';
 
 
 
+
 export default function Dashboard({title}) {
   const socket = useContext(SocketProvider);
   const [isConnected, setIsConnected] = useState(socket.connected);
@@ -35,7 +36,7 @@ export default function Dashboard({title}) {
       <div className='pics'>
           <img id='eyeball' src='/eyeball2.png' alt='img'/>
           <Link style={{height: 'fit-content'}} to='/players'>
-            <Tippy content='Create new game' placement='top'>
+            <Tippy content='Create new game' placement='top' className='tippy-pink'>
               <img id='new-game-btn'
                 // src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/555429/donut.svg'
                 src='/donut.png'
@@ -55,7 +56,7 @@ export default function Dashboard({title}) {
           <div className='link'>
           
             <Link style={{height: 'fit-content'}} to='/form'>  
-            <Tippy content="Go to game" theme='light' >
+            <Tippy content="Go to game" className='tippy-red'>
               <img id='my-game-btn'
               src='/heart.png'
               alt={title}

@@ -114,12 +114,13 @@
 
 }
 
-#tippy-2 {
-  color: red;
+
+.tippy-pink {
+  color: rgb(245, 169, 182);
   font-size: 25px;
 }
 
-#tippy-1 {
-  color: rgb(237, 144, 160);
-  font-size: 25px
+.tippy-red {
+  color: red;
+  font-size: 25px;
 }
