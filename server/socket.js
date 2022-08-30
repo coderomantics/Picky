@@ -10,6 +10,7 @@ const mountSocket = (server) => {
     {
         cors: {
             origin: "*",
+            credentials: true
         },
     });
 
