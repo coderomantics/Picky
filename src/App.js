@@ -16,7 +16,7 @@ const SERVER_URL = process.env.NODE_ENV === 'production'
     : 'http://127.0.0.1:3008'
 
 const socket = io(SERVER_URL, {
-  withCredentials: true
+  withCredentials: false
 })
 
 function App() {
