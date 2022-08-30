@@ -10,7 +10,7 @@ import io from 'socket.io-client';
 export const SocketProvider = React.createContext();
 
 // const socket = io('http://127.0.0.1:3008');
-const socket = io('https://powerful-shore-19559.herokuapp.com/')
+const socket = io('https://pacific-badlands-88271.herokuapp.com/')
 
 function App() {
   const [players, setPlayers] = useState([])
