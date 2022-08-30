@@ -9,6 +9,8 @@ import io from 'socket.io-client';
 
 export const SocketProvider = React.createContext();
 
+console.log(process.env)
+
 // const socket = io('http://127.0.0.1:3008');
 const socket = io(process.env.SOCKET_SERVICE_URL, {
   withCredentials: true
